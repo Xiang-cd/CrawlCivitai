@@ -6,7 +6,7 @@
 #     https://docs.scrapy.org/en/latest/topics/settings.html
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-
+LOG_LEVEL = "INFO"
 BOT_NAME = "civital_crawl"
 
 SPIDER_MODULES = ["civital_crawl.spiders"]
@@ -14,13 +14,17 @@ NEWSPIDER_MODULE = "civital_crawl.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = "civital_crawl (+http://www.yourdomain.com)"
+USER_AGENT = "‘Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36’"
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
-
+ROBOTSTXT_OBEY = False
+MEDIA_ALLOW_REDIRECTS = True
+DOWNLOAD_MAXSIZE = 8*1073741824 # 8G
+DOWNLOAD_WARNSIZE = 1073741824
+DOWNLOAD_TIMEOUT = 3600 * 2 # 4h
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 200
+CONCURRENT_REQUESTS = 2
+CONCURRENT_ITEMS = 2
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
@@ -29,7 +33,8 @@ CONCURRENT_REQUESTS = 200
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
-
+IMAGES_STORE = "/DATA4T/civitai/data"
+FILES_STORE = "/DATA4T/civitai/data"
 # Disable cookies (enabled by default)
 #COOKIES_ENABLED = False
 
@@ -59,12 +64,15 @@ CONCURRENT_REQUESTS = 200
 #EXTENSIONS = {
 #    "scrapy.extensions.telnet.TelnetConsole": None,
 #}
+MEMUSAGE_ENABLED = True
+MEMUSAGE_LIMIT_MB = 1024 * 12
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    "civital_crawl.pipelines.CivitalCrawlPipeline": 300,
-#}
+ITEM_PIPELINES = {
+   "civital_crawl.pipelines.MyImagePipeline": 300,
+   "civital_crawl.pipelines.MyModelPipeline": 301,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
