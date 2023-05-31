@@ -7,6 +7,7 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 LOG_LEVEL = "INFO"
+LOG_FILE = "/DATA4T/civitai/crawl3.log"
 BOT_NAME = "civital_crawl"
 
 SPIDER_MODULES = ["civital_crawl.spiders"]
@@ -20,11 +21,11 @@ USER_AGENT = "‘Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML,
 ROBOTSTXT_OBEY = False
 MEDIA_ALLOW_REDIRECTS = True
 DOWNLOAD_MAXSIZE = 8*1073741824 # 8G
-DOWNLOAD_WARNSIZE = 1073741824
+DOWNLOAD_WARNSIZE = 8* 1073741824
 DOWNLOAD_TIMEOUT = 3600 * 2 # 4h
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 2
-CONCURRENT_ITEMS = 2
+CONCURRENT_REQUESTS = 1
+CONCURRENT_ITEMS = 1
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
@@ -65,7 +66,7 @@ FILES_STORE = "/DATA4T/civitai/data"
 #    "scrapy.extensions.telnet.TelnetConsole": None,
 #}
 MEMUSAGE_ENABLED = True
-MEMUSAGE_LIMIT_MB = 1024 * 12
+MEMUSAGE_LIMIT_MB = 1024 * 14
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html

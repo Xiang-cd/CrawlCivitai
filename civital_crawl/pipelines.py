@@ -64,7 +64,7 @@ class MyModelPipeline(FilesPipeline):
         if len(fail_st) > 0:
             logging.warning(fail_st)
 
-        with open(os.path.join(item["data_base"], str(item["base_model"]), str(item["model_version"]), "dowload_info.json"), "a") as f:
+        with open(os.path.join(item["data_base"], str(item["base_model"]), str(item["model_version"]), "dowload_info.json"), "w") as f:
             f.write(json.dumps(status))
             f.write("\n")
             f.close()

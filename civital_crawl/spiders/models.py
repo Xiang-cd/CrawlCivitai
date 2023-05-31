@@ -22,8 +22,8 @@ class CiviModelSpider(scrapy.Spider):
     allowed_domains = ["civitai.com"]
     data_base = "/DATA4T/civitai"
     data_dir = f"{data_base}/data"
-    total_pages = 1
-    cur_page_num = 1
+    total_pages = 692
+    cur_page_num = 75
     start_urls = [f"https://civitai.com/api/v1/models?page={cur_page_num}"]
     download_clip = 300
 
@@ -51,7 +51,7 @@ class CiviModelSpider(scrapy.Spider):
             if downloadCount < self.download_clip:
                 continue
             base_id = item["id"]
-            self.logger.info(f"id:{base_id}")
+            self.logger.info(f"id:{base_id}  type:{item['type']}")
             
             os.makedirs(f"{self.data_dir}/{base_id}", exist_ok=True)
             with open(f"{self.data_dir}/{base_id}/meta.json", "w") as f:
@@ -74,3 +74,4 @@ class CiviModelSpider(scrapy.Spider):
                         data_base = self.data_dir
                     )
         self.cur_page_num += 1
+        yield Request(f"https://civitai.com/api/v1/models?page={self.cur_page_num}", callback=self.parse)
